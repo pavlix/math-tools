@@ -1,5 +1,6 @@
 import type { AST } from "./ast";
 
+let rootNode: AST | null = null;
 let selectedNode: AST | null = null;
 
 export function renderTree(ast: AST, svgElement: SVGElement): void {
@@ -17,13 +18,14 @@ export function renderTree(ast: AST, svgElement: SVGElement): void {
     layout(ast, treeWidth/2, 40, treeWidth/6);
 
     // Always set root as selected initially
+    rootNode = ast;
     selectedNode = ast;
 
     // Second pass: draw
     draw(svgElement as SVGSVGElement, ast);
 
     // Show initial expression
-    updateExpressionDisplay(ast);
+    updateExpressionDisplay();
 }
 
 function isInSubtree(node: AST, root: AST): boolean {
@@ -116,8 +118,8 @@ function node(svg: SVGSVGElement, ast: AST) {
             }
         });
 
-        // Update expression display
-        updateExpressionDisplay(selectedNode);
+        // Update expression display with root node
+        updateExpressionDisplay();
     });
 
     // Store AST reference for click handler
@@ -139,7 +141,7 @@ function getExpression(ast: AST): string {
 function updateExpressionDisplay(ast: AST) {
     const expressionDiv = document.getElementById('expression-result');
     if (expressionDiv) {
-        const expr = getExpression(ast).replace(/^\((.*)\)$/, '$1');  // Remove outer parentheses
+        const expr = getExpression(rootNode).replace(/^\((.*)\)$/, '$1');  // Remove outer parentheses
         expressionDiv.textContent = expr;
     }
 }
