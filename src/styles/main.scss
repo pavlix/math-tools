@@ -222,7 +222,14 @@ svg {
 .expression-result {
     padding: 20px;
     font-size: 24px;
-    color: #1976d2;
+
+    .highlighted {
+        color: #1976d2;
+    }
+
+    .greyed-out {
+        color: #9e9e9e;
+    }
 }
 
 /* Addition styles */

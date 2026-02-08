@@ -128,22 +128,32 @@ function node(svg: SVGSVGElement, ast: AST) {
     svg.appendChild(g);
 }
 
-function getExpression(ast: AST): string {
+function getExpression(ast: AST, highlight: boolean = false): string {
     if (ast.type === "num" || ast.type === "var") {
-        return ast.value!;
+        const value = ast.value!;
+        return highlight ? `<span class="highlighted">${value}</span>` : `<span class="greyed-out">${value}</span>`;
     }
-    const left = getExpression(ast.left!);
-    const right = getExpression(ast.right!);
-    return `(${left} ${ast.op} ${right})`;
+    const isHighlighted = isInSubtree(ast, selectedNode!);
+    const left = getExpression(ast.left!, isHighlighted);
+    const right = getExpression(ast.right!, isHighlighted);
+    const op = isHighlighted ? 
+        `<span class="highlighted">${ast.op}</span>` : 
+        `<span class="greyed-out">${ast.op}</span>`;
+    const paren = isHighlighted ? 
+        `<span class="highlighted">(</span>` : 
+        `<span class="greyed-out">(</span>`;
+    const closeParen = isHighlighted ? 
+        `<span class="highlighted">)</span>` : 
+        `<span class="greyed-out">)</span>`;
+    return `${paren}${left} ${op} ${right}${closeParen}`;
 }
 
-
-function updateExpressionDisplay(ast: AST) {
+function updateExpressionDisplay() {
     const expressionDiv = document.getElementById('expression-result');
-    if (expressionDiv) {
-        const expr = getExpression(rootNode).replace(/^\((.*)\)$/, '$1');  // Remove outer parentheses
-        expressionDiv.textContent = expr;
-    }
+    if (!expressionDiv || !rootNode) return;
+    
+    const expr = getExpression(rootNode).replace(/^\((.*)\)$/, '$1');  // Remove outer parentheses
+    expressionDiv.innerHTML = expr;
 }
 
 function calculateTreeWidth(ast: AST): number {
