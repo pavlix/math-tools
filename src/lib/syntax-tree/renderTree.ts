@@ -131,7 +131,8 @@ function node(svg: SVGSVGElement, ast: AST) {
 function getExpression(ast: AST, highlight: boolean = false): string {
     if (ast.type === "num" || ast.type === "var") {
         const value = ast.value!;
-        return highlight ? `<span class="highlighted">${value}</span>` : `<span class="greyed-out">${value}</span>`;
+        const isHighlighted = isInSubtree(ast, selectedNode!);
+        return `<span class="${isHighlighted ? 'highlighted' : 'greyed-out'}">${value}</span>`;
     }
     const isHighlighted = isInSubtree(ast, selectedNode!);
     const left = getExpression(ast.left!, isHighlighted);
