@@ -143,9 +143,22 @@ function getExpression(ast: AST, highlight: boolean = false): string {
 
     // Add parentheses for subexpressions that need them
     const needsParens = ast.type === "bin" && (
-        // When current node is + and parent is ×
-        (ast.op === '+' && ast.parent?.type === 'bin' && ast.parent.op === '×')
+        // When current node is + and its parent is ×
+        (ast.op === '+' && ast.parent?.type === 'bin' && ast.parent.op === '×') ||
+        // When current node is + and it's a child of a × operation
+        (ast.op === '+' && findParentOp(ast) === '×')
     );
+
+    function findParentOp(node: AST): string | null {
+        let current = node;
+        while (current.parent) {
+            if (current.parent.type === 'bin' && current.parent.op === '×') {
+                return '×';
+            }
+            current = current.parent;
+        }
+        return null;
+    }
 
     if (needsParens) {
         const paren = isHighlighted ? 
