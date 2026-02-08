@@ -12,8 +12,8 @@ export function drawRectangles(number: number): void {
     svg.innerHTML = '';
     
     const gridSize = 20;
-    const margin = gridSize;
-    let currentY = margin;
+    const margin = 0;
+    let currentY = 0;
     const maxWidth = Math.floor((window.innerWidth - margin * 2) / gridSize) * gridSize;
 
     factors.forEach(factor => {
