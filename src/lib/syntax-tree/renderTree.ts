@@ -140,13 +140,31 @@ function getExpression(ast: AST, highlight: boolean = false): string {
     const op = isHighlighted ? 
         `<span class="highlighted">${ast.op}</span>` : 
         `<span class="greyed-out">${ast.op}</span>`;
-    const paren = isHighlighted ? 
-        `<span class="highlighted">(</span>` : 
-        `<span class="greyed-out">(</span>`;
-    const closeParen = isHighlighted ? 
-        `<span class="highlighted">)</span>` : 
-        `<span class="greyed-out">)</span>`;
-    return `${paren}${left} ${op} ${right}${closeParen}`;
+
+    // Only add parentheses when needed for operator precedence
+    const needsParens = 
+        // When + is parent and × is child
+        (ast.op === '+' && (
+            (ast.left?.type === 'bin' && ast.left.op === '×') ||
+            (ast.right?.type === 'bin' && ast.right.op === '×')
+        )) ||
+        // When × is parent and + is child
+        (ast.op === '×' && (
+            (ast.left?.type === 'bin' && ast.left.op === '+') ||
+            (ast.right?.type === 'bin' && ast.right.op === '+')
+        ));
+
+    if (needsParens) {
+        const paren = isHighlighted ? 
+            `<span class="highlighted">(</span>` : 
+            `<span class="greyed-out">(</span>`;
+        const closeParen = isHighlighted ? 
+            `<span class="highlighted">)</span>` : 
+            `<span class="greyed-out">)</span>`;
+        return `${paren}${left} ${op} ${right}${closeParen}`;
+    }
+    
+    return `${left} ${op} ${right}`;
 }
 
 function updateExpressionDisplay() {
