@@ -123,6 +123,21 @@ input[type="text"] {
 }
 
 svg {
+    &#addition {
+        width: 100%;
+        height: calc(100vh - 120px);
+        margin: 40px 0 0;
+    }
+
+    &#multiplication {
+        width: 100%;
+        height: calc(100vh - 80px);
+    }
+
+    &#tree {
+        width: 600px;
+        margin: 20px;
+    }
 }
 
 /* Syntax tree styles */
