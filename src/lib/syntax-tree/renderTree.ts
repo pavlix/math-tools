@@ -141,20 +141,18 @@ function getExpression(ast: AST, highlight: boolean = false): string {
         `<span class="highlighted">${ast.op}</span>` : 
         `<span class="greyed-out">${ast.op}</span>`;
 
-    // Only add parentheses when needed for operator precedence
-    const needsParens = 
-        // When + is parent and × is child
-        (ast.op === '+' && (
-            (ast.left?.type === 'bin' && ast.left.op === '×') ||
-            (ast.right?.type === 'bin' && ast.right.op === '×')
-        )) ||
-        // When × is parent and + is child
+    // Add parentheses for subexpressions that need them
+    const needsParens = ast.type === "bin" && (
+        // When current node is × and either child is +
         (ast.op === '×' && (
             (ast.left?.type === 'bin' && ast.left.op === '+') ||
             (ast.right?.type === 'bin' && ast.right.op === '+')
-        ));
+        )) ||
+        // When parent is × and current node is +
+        (ast.parent?.type === 'bin' && ast.parent.op === '×' && ast.op === '+')
+    );
 
-    if (needsParens) {
+    if (needsParens && ast !== rootNode) {
         const paren = isHighlighted ? 
             `<span class="highlighted">(</span>` : 
             `<span class="greyed-out">(</span>`;
