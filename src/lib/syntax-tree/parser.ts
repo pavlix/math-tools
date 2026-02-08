@@ -35,7 +35,11 @@ export function parser(tokens: Token[]): AST {
 
             next();
             const rhs = parseExpr(bp + 1);
-            lhs = Bin(op.value, lhs, rhs);
+            const newLhs = Bin(op.value, lhs, rhs);
+            // Set parent references
+            if (lhs.type === 'bin') lhs.parent = newLhs;
+            if (rhs.type === 'bin') rhs.parent = newLhs;
+            lhs = newLhs;
         }
 
         return lhs;

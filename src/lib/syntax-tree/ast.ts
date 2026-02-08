@@ -4,6 +4,7 @@ export interface AST {
     op?: string;
     left?: AST;
     right?: AST;
+    parent?: AST;
     x?: number;
     y?: number;
 }
