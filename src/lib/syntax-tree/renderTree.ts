@@ -143,16 +143,11 @@ function getExpression(ast: AST, highlight: boolean = false): string {
 
     // Add parentheses for subexpressions that need them
     const needsParens = ast.type === "bin" && (
-        // When current node is × and either child is +
-        (ast.op === '×' && (
-            (ast.left?.type === 'bin' && ast.left.op === '+') ||
-            (ast.right?.type === 'bin' && ast.right.op === '+')
-        )) ||
-        // When parent is × and current node is +
-        (ast.parent?.type === 'bin' && ast.parent.op === '×' && ast.op === '+')
+        // When current node is + and parent is ×
+        (ast.op === '+' && ast.parent?.type === 'bin' && ast.parent.op === '×')
     );
 
-    if (needsParens && ast !== rootNode) {
+    if (needsParens) {
         const paren = isHighlighted ? 
             `<span class="highlighted">(</span>` : 
             `<span class="greyed-out">(</span>`;
