@@ -1,6 +1,6 @@
 export function drawRectangles(number: number): void {
     const factors: number[] = [];
-    for (let i = 1; i <= number; i++) {
+    for (let i = 1; i*i <= number; i++) {
         if (number % i === 0) {
             factors.push(i);
         }
