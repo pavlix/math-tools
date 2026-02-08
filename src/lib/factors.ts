@@ -13,35 +13,26 @@ export function drawRectangles(number: number): void {
     
     const gridSize = 20;
     const margin = gridSize;
-    let currentX = margin;
     let currentY = margin;
-    let rowHeight = 0;
     const maxWidth = Math.floor((window.innerWidth - margin * 2) / gridSize) * gridSize;
 
     factors.forEach(factor => {
         const width = factor * gridSize;
         const height = (number / factor) * gridSize;
 
-        if (currentX + width + margin > maxWidth) {
-            currentX = margin;
-            currentY += rowHeight + gridSize;
-            rowHeight = 0;
-        }
-
         const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect.setAttribute("x", currentX.toString());
+        rect.setAttribute("x", margin.toString());
         rect.setAttribute("y", currentY.toString());
-        rect.setAttribute("width", width.toString());
+        rect.setAttribute("width", Math.min(width, maxWidth - margin * 2).toString());
         rect.setAttribute("height", height.toString());
         rect.setAttribute("class", "rectangle");
         rect.setAttribute("title", `${factor} x ${number/factor}`);
         svg.appendChild(rect);
 
-        currentX += width + gridSize;
-        rowHeight = Math.max(rowHeight, height);
+        currentY += height + gridSize;
     });
 
-    svg.setAttribute("height", (currentY + rowHeight + margin).toString());
+    svg.setAttribute("height", (currentY + margin).toString());
 }
 
 function initializeFactors(): void {
