@@ -21,10 +21,10 @@ export function drawRectangles(number: number): void {
         const height = factor * gridSize;
 
         const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect.setAttribute("x", margin.toString());
-        rect.setAttribute("y", currentY.toString());
-        rect.setAttribute("width", Math.min(width, maxWidth - margin * 2).toString());
-        rect.setAttribute("height", height.toString());
+        rect.setAttribute("x", "0.5");
+        rect.setAttribute("y", (currentY + 0.5).toString());
+        rect.setAttribute("width", Math.min(width, maxWidth) - 1);
+        rect.setAttribute("height", height - 1);
         rect.setAttribute("class", "rectangle");
         rect.setAttribute("title", `${factor} x ${number/factor}`);
         svg.appendChild(rect);
