@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/main.scss';
+---
+
+<Layout title="Factors">
+    <h1>Factors</h1>
+    <div class="input-container">
+        <input type="number" id="number" min="1" required value="1">
+    </div>
+    <svg id="rectangles" style="width: 100%; height: calc(100vh - 80px);"></svg>
+</Layout>
+
+<script>
+    import '../lib/factors.js';
+</script>

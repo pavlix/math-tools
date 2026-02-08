@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/main.scss';
+---
+
+<Layout title="Syntax Tree">
+    <h1>Syntax Tree</h1>
+    <div class="input-container">
+        <input type="text" id="expression" value="2 + 3 × 5" placeholder="Enter math expression" required>
+    </div>
+    <svg id="tree" style="width: 600px; margin: 20px;"></svg>
+    <div id="expression-result" class="expression-result"></div>
+    
+    <h2 class="examples-heading">Examples:</h2>
+    <div id="examples" class="examples">
+        <a href="#" data-expr="2 + 3">2 + 3</a>
+        <a href="#" data-expr="(2 + 3) × 5">(2 + 3) × 5</a>
+        <a href="#" data-expr="(2 + 3) × (5 + 8)">(2 + 3) × (5 + 8)</a>
+        <a href="#" data-expr="2 + 3 × 5">2 + 3 × 5</a>
+    </div>
+</Layout>
+
+<script>
+    import '../lib/syntax-tree/main';
+</script>

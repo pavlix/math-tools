@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/main.scss';
+---
+
+<Layout title="Addition">
+    <h1>Addition</h1>
+    <div class="input-container">
+        <input type="number" id="number1" min="0" required value="8">
+        <span class="operator">+</span>
+        <input type="number" id="number2" min="0" required value="5">
+        <button id="exchange" class="exchange-button">⇄</button>
+    </div>
+    <svg id="addition" style="width: 100%; height: calc(100vh - 120px); margin: 40px 0 0;"></svg>
+</Layout>
+
+<script>
+    import { initializeAddition } from '../lib/addition';
+    document.addEventListener('DOMContentLoaded', initializeAddition);
+</script>

@@ -1,0 +1,28 @@
+---
+interface Props {
+	title?: string;
+}
+
+const { title = "Math Tools" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<nav>
+			<a href="/addition/">Addition</a>
+			<a href="/multiplication/">Multiplication</a>
+			<a href="/factors/">Factors</a>
+			<a href="/syntax-tree/">Syntax Tree</a>
+		</nav>
+		<slot />
+	</body>
+</html>
+
