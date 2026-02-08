@@ -61,20 +61,20 @@ function drawAddition(num1: number, num2: number): void {
         const col = i % squaresPerRow;
         
         const square = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        square.setAttribute("x", (col * squareSize).toString());
-        square.setAttribute("y", (row * squareSize).toString());
-        square.setAttribute("width", squareSize.toString());
-        square.setAttribute("height", squareSize.toString());
+        square.setAttribute("x", (col * squareSize + 0.5).toString());
+        square.setAttribute("y", (row * squareSize + 0.5).toString());
+        square.setAttribute("width", squareSize);
+        square.setAttribute("height", squareSize);
         square.classList.add(i < num1 ? "first-number" : "second-number");
         
         g.appendChild(square);
     }
 
     const border = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    border.setAttribute("x", "0");
-    border.setAttribute("y", "0");
-    border.setAttribute("width", width.toString());
-    border.setAttribute("height", height.toString());
+    border.setAttribute("x", "0.5");
+    border.setAttribute("y", "0.5");
+    border.setAttribute("width", width);
+    border.setAttribute("height", height);
     border.setAttribute("fill", "none");
     border.setAttribute("stroke", "#333");
     border.setAttribute("stroke-width", "1");

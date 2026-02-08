@@ -48,10 +48,10 @@ function drawMultiplication(num1: number, num2: number): void {
     g.setAttribute("transform", "translate(0, 0)");
 
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect.setAttribute("x", "0");
-    rect.setAttribute("y", "0");
-    rect.setAttribute("width", width.toString());
-    rect.setAttribute("height", height.toString());
+    rect.setAttribute("x", "0.5");
+    rect.setAttribute("y", "0.5");
+    rect.setAttribute("width", width);
+    rect.setAttribute("height", height);
     rect.setAttribute("fill", "rgba(64, 128, 255, 0.3)");
     rect.setAttribute("stroke", "#333");
     rect.setAttribute("stroke-width", "1");
