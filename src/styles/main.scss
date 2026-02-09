@@ -115,9 +115,14 @@ h1 {
     margin-bottom: 20px;
 }
 
-input[type="number"],
+input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    font-size: 16px;
+}
+
 input[type="text"] {
-    width: 200px;
+    width: 300px;
     padding: 5px;
     font-size: 16px;
 }
